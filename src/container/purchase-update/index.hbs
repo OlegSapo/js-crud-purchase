@@ -1,0 +1,22 @@
+<main class="main">
+  <form method="POST" action="/purchase-submit?id={{id}}">
+    <div class="form__card">
+      {{>heading title="Зміна даних"}}
+
+      <div class="block1">
+        {{!-- {{>field-text label="ID:" type="number" data=purchaseUpdate.id name="id"}} --}}
+        <span>ID:</span>
+        <span>{{purchaseUpdate.id}}</span>
+      </div>
+
+      <div class="block2">
+        {{>field label="Прізвище:" value=purchaseUpdate.lastname name="lastname"}}
+        {{>field label="Ім'я:" value=purchaseUpdate.firstname name="firstname"}}
+        {{>field label="Електронна пошта:" value=purchaseUpdate.email name="email"}}
+        {{>field label="Телефон:" value=purchaseUpdate.phone name="phone"}}
+      </div>
+
+      {{>button text="Зберігти зміни"}}
+    </div>
+  </form>
+</main>

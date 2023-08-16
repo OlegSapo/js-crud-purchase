@@ -1,0 +1,33 @@
+@use "../../component/heading/style.scss" as heading;
+@use "../../component/button/style.scss" as button;
+@use "../../component/field-text/style.scss" as field-text;
+@use "../../component/field/style.scss" as field;
+
+
+.main {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 15px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 8px;
+  margin: 8px;
+}
+
+.form__card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.block1 {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.block2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}

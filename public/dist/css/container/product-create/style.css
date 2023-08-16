@@ -1,0 +1,74 @@
+main {
+  display: grid;
+  gap: 40px;
+  gap: 40px;
+  padding: 16px;
+}
+
+.form_title {
+  color: blue;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card {
+  display: grid;
+  gap: 16px;
+  border: 1px solid;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+}
+
+.product_title {
+  font-weight: bold;
+  padding-bottom: 8px;
+}
+
+.form_field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name_price {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.form_label {
+  font-size: 14px;
+}
+
+.form_input {
+  border: 1px solid;
+  padding: 8px;
+}
+
+.product_name, .product_price {
+  width: 50%;
+}
+
+.product_description {
+  display: grid;
+}
+
+textarea {
+  border: 1px solid;
+}
+
+span {
+  font-size: 12px;
+  color: gray;
+}
+
+.button_product_create {
+  border: 1px solid;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+}
+
+/*# sourceMappingURL=style.css.map */

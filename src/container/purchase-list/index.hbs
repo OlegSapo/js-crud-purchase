@@ -1,0 +1,35 @@
+<main class="main">
+  {{>heading title="Moї замовлення"}}
+
+  {{#each list}}
+    <div class="card">
+
+      <div class="label-input__id">
+        <span class="field__label-id">ID:</span>
+        <a href="/purchase-info?id={{id}}" class="link">{{id}}</a>
+      </div>
+      
+      {{!-- <div class="label-input">
+        <label for="product_name" class="field__label">Товар:</label>
+        <input type="text" value="{{#if product}}{{product}}{{/if}}" name="product_name" class="field__input field__input-product" readonly>
+      </div> --}}
+      {{>field-text label="Товар:" type="text" data=this.product name="product"}}
+      
+
+      {{!-- <div class="label-input">
+        <label for="totalPrice" class="field__label">Сума замовлення:</label>
+        <input type="text" value="{{totalPrice}} грн" name="totalPrice" class="field__input" readonly>
+      </div> --}}
+      {{>field-text label="Сума замовлення (грн):" type="text" data=this.totalPrice name="totalPrice"}}
+
+      {{!-- <div class="label-input">
+        <label for="bonus" class="field__label">Бонус:</label>
+        <input type="text" value="{{bonus}} грн" name="bonus" class="field__input" readonly>
+      </div> --}}
+      {{>field-text label="Бонус (грн):" type="text" data=this.bonus name="bonus"}}
+      
+    </div>
+   {{>divider}}
+  {{/each}}
+ 
+</main>

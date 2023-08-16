@@ -1,0 +1,29 @@
+<main>
+
+  <h1 class="form_title">Список товарів</h1>
+  {{!-- <form method="POST" action="/user-create"> --}}
+  <div class="list_products">
+    {{#if isEmpty}} 
+      <div class="card">
+        <h2>null</h2> 
+        <div class="product_description">null</div>
+        <div class="product_id">null</div>
+        <div class="price_edit">
+            <div class="product_price">0$</div>
+            <div class="link_product_edit">NoEdit</div>
+        </div>
+      </div>
+      {{else}} {{#each prdts}}
+      <div class="card">
+        <h2>{{name}}</h2> 
+        <div class="product_description">{{description}}</div>
+        <div class="product_id">{{id}}</div>
+        <div class="price_edit">
+            <div class="product_price">{{price}}grv</div>
+            <div class="link_product_edit"><a href="#">Редагувати</a></div>
+        </div>
+      </div>
+      {{/each}}
+      {{/if}}
+
+</main>

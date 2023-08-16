@@ -1,0 +1,45 @@
+@use "../../component/field-text/style.scss" as field-text;
+@use "../../component/divider/style.scss" as divider;
+@use "../../component/heading/style.scss" as heading;
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 10% 40% 25% 25%;
+  gap: 12px;
+  padding-top: 24px;
+}
+
+.label-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.label-input__id {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.field__label {
+  padding-left: 8px;
+}
+
+.field__input-product {
+  overflow-wrap: break-word;
+  width: 100%;
+  font-size: 14px;
+  size: 100%;
+}
+
+.link {
+  color: blue;
+  font-weight: bold;
+  padding-left: 4px;
+}

@@ -1,0 +1,39 @@
+<main class="main">
+
+  {{>heading title="Інформація про замовлення"}}
+
+  {{!-- <form method="POST" action="/purchase-update?id={{purchaseInfo.id}}"> --}}
+    <div class="card">
+    
+      <div class="block1">
+          {{>field-text label="ID:" type="text" data=purchaseInfo.id name="id"}}
+      </div>
+      {{>divider}}
+
+      <div class="block1">
+          {{>field-text label="Ім'я:" type="text" data=purchaseInfo.firstname name="firstname"}}
+          {{>field-text label="Прізвище:" type="text" data=purchaseInfo.lastname name="lastnema"}}
+          {{>field-text label="Телефон:" type="text" data=purchaseInfo.phone name="phone"}}
+          {{>field-text label="Електронна пошта:" type="text" data=purchaseInfo.email name="email"}}
+      </div>
+      {{>divider}}
+
+      <div class="block2">
+          {{>field-text label="Адреса доставки:" type="text" data=purchaseInfo.comment name="comment"}}
+          {{>field-text label="Назва товару:" type="text" data=purchaseInfo.product.title name="product"}}
+      </div>
+      {{>divider}}
+
+      <div class="block1">
+          {{>field-text label="Вартість товарів (грн):" type="text" data=purchaseInfo.productPrice name="productPrice"}}
+          {{>field-text label="Вартість доставки (грн):" type="text" data=purchaseInfo.deliveryPrice name="deliveryPrice"}}
+          {{>field-text label="Сума до сплати (грн):" type="text" data=purchaseInfo.totalPrice name="totalPrice"}}
+          {{>field-text label="Нараховані бонуси (грн):" type="text" data=purchaseInfo.bonus name="bonus"}}
+      </div>
+      {{>divider}}
+
+      {{>button-link text="Змінити дані" link="/purchase-update?id=" data=purchaseInfo.id }}
+
+    </div>
+  {{!-- </form> --}}
+</main>
