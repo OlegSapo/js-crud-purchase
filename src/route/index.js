@@ -112,7 +112,7 @@ class Purchase {
     const updateBalance = currentBalance + amount - bonusUse
     Purchase.#bonusAccount.set(email, updateBalance)
 
-    console.log(email, updateBalance)
+    // console.log(email, updateBalance)
 
     return amount
   }
@@ -256,11 +256,11 @@ router.post('/purchase-create', function (req, res) {
     })
   }
 
-  console.log(product, amount)
-
   const productPrice = product.price * amount
   const totalPrice = productPrice + Purchase.DELIVERY_PRICE
   const bonus = Purchase.calcBonusAmount(totalPrice)
+
+  // console.log('bonus000:', bonus)
 
   res.render('purchase-create', {
     style: 'purchase-create',
@@ -290,7 +290,6 @@ router.post('/purchase-create', function (req, res) {
 
 router.post('/purchase-submit', function (req, res) {
   const id = Number(req.query.id)
-  // console.log(id)
 
   let {
     totalPrice,
@@ -305,6 +304,12 @@ router.post('/purchase-submit', function (req, res) {
     promocode,
     bonus,
   } = req.body
+
+  // console.log('bonus1:', bonus)
+  // let correctBonus = bonus[1]
+  // console.log('newBonus:', correctBonus)
+  // bonus = correctBonus
+  // console.log('bonus2:', bonus)
 
   const product = Product.getById(id)
 
@@ -336,6 +341,8 @@ router.post('/purchase-submit', function (req, res) {
   amount = Number(amount)
   bonus = Number(bonus)
 
+  // console.log('bonus3:', bonus)
+
   if (
     isNaN(totalPrice) ||
     isNaN(productPrice) ||
@@ -343,6 +350,8 @@ router.post('/purchase-submit', function (req, res) {
     isNaN(amount) ||
     isNaN(bonus)
   ) {
+    // console.log('bonusNaN', bonus)
+
     return res.render('alert', {
       style: 'alert',
       data: {
@@ -357,20 +366,23 @@ router.post('/purchase-submit', function (req, res) {
     return res.render('alert', {
       style: 'alert',
       data: {
-        message: "Заповніть обов'язкові поля",
+        message: "Заповніть обов'язкові поля, позначені *",
         info: 'Некоректні дані',
-        link: '/purchase-list',
+        link: `/purchase-product?id=${id}`,
       },
     })
   }
 
+  // console.log('bonus4:', bonus)
+
   if (bonus || bonus > 0) {
     const bonusAmount = Purchase.getBonusBalance(email)
 
-    console.log(bonusAmount)
+    // console.log('bonusAmount', bonusAmount)
 
     if (bonus > bonusAmount) {
-      bonus = bonusAmount
+      bonus = bonusAmount //====
+      // console.log('bonus5:', bonus)
     }
     Purchase.updateBonusBalance(email, totalPrice, bonus)
     totalPrice -= bonus
@@ -387,18 +399,20 @@ router.post('/purchase-submit', function (req, res) {
 
   if (totalPrice < 0) totalPrice = 0
 
+  // console.log('bonus3', bonus)
+
   const purchase = Purchase.add(
     {
-      totalPrice,
-      productPrice,
-      deliveryPrice,
-      amount,
       firstname,
       lastname,
       phone,
       email,
       comment,
       promocode,
+      totalPrice,
+      productPrice,
+      deliveryPrice,
+      amount,
       bonus,
     },
     product,
@@ -424,10 +438,7 @@ router.post('/purchase-submit', function (req, res) {
 
 router.get('/purchase-list', function (req, res) {
   const list = Purchase.getList()
-  console.log(list)
-  // for (let value of list) {
-  //   console.log(value.id)
-  // } // код работает
+  // console.log(list)
 
   res.render('purchase-list', {
     style: 'purchase-list',
@@ -442,7 +453,7 @@ router.get('/purchase-info', function (req, res) {
   const id = Number(req.query.id)
   const purchaseInfo = Purchase.getById(id)
 
-  console.log(purchaseInfo)
+  // console.log(purchaseInfo)
 
   res.render('purchase-info', {
     style: 'purchase-info',
@@ -455,37 +466,82 @@ router.get('/purchase-info', function (req, res) {
 
 router.get('/purchase-update', function (req, res) {
   const id = Number(req.query.id)
+  const purchase = Purchase.getById(id)
 
-  const purchaseUpdate = Purchase.getById(id)
-  console.log('purchaseUpdate', purchaseUpdate)
-
-  let { firstname, lastname, phone, email } = req.body
-
-  console.log(firstname, lastname, phone, email)
-
-  if (firstname && lastname && phone && email) {
-    purchaseUpdate.firstname = firstname
-    purchaseUpdate.lastname = lastname
-    purchaseUpdate.email = email
-    purchaseUpdate.phone = phone
-
-    console.log(firstname, lastname, phone, email)
-
-    return res.render('alert', {
+  if (!purchase) {
+    res.render('alert', {
       style: 'alert',
       data: {
-        message: 'Успішно',
-        info: 'Дані змінено',
-        link: '/purchase-info?id=',
+        message: 'Помилка',
+        info: 'Замовлення з таким ID відсутньо',
+        link: '/purchase-list',
+      },
+    })
+  } else {
+    res.render('purchase-update', {
+      style: 'purchase-update',
+      data: {
+        id: purchase.id,
+        firstname: purchase.firstname,
+        lastname: purchase.lastname,
+        phone: purchase.phone,
+        email: purchase.email,
       },
     })
   }
-
-  res.render('purchase-update', {
-    style: 'purchase-update',
-    purchaseUpdate,
-  })
   // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.post('/purchase-update', function (req, res) {
+  const id = Number(req.query.id)
+  let { firstname, lastname, phone, email } = req.body
+
+  const purchase = Purchase.getById(id)
+
+  // console.log(purchase)
+
+  if (purchase) {
+    const newPurchase = Purchase.updateById(id, {
+      firstname,
+      lastname,
+      phone,
+      email,
+    })
+
+    if (newPurchase) {
+      res.render('alert', {
+        style: 'alert',
+
+        data: {
+          message: 'Успішне виконання дії',
+          info: 'Інформацію про замовлення оновлено',
+          link: `/purchase-info?id=${purchase.id}`,
+        },
+      })
+    } else {
+      res.render('alert', {
+        style: 'alert',
+
+        data: {
+          message: 'Помилка',
+          info: 'Інформацію про замовлення не оновлено',
+          link: `/purchase-info?id=${purchase.id}`,
+        },
+      })
+    }
+  } else {
+    res.render('alert', {
+      style: 'alert',
+
+      data: {
+        message: 'Помилка',
+        info: 'Дане замовлення відсутньо',
+        link: '/purchase-list',
+      },
+    })
+  }
 })
 
 // Підключаємо роутер до бек-енду

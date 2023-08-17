@@ -18,10 +18,10 @@
       {{>heading title="Оформлення замовлення"}}
 
       {{!-- <div class="block"> --}}
-        {{>field label="Ім'я" name="firstname"}}
-        {{>field label="Прізвище" name="lastname"}}
-        {{>field label="Телефон" name="phone"}}
-        {{>field label="Пошта" name="email"}}
+        {{>field label="Ім'я*" name="firstname"}}
+        {{>field label="Прізвище*" name="lastname"}}
+        {{>field label="Телефон*" name="phone"}}
+        {{>field label="Пошта*" name="email"}}
       {{!-- </div> --}}
       {{>field label="Коментар (адреса доставки)" name="comment"}}
       {{!-- <div class="block"> --}}
@@ -35,6 +35,7 @@
       {{>field value=productPrice name="productPrice" disabled=true}}
       {{>field value=deliveryPrice name="deliveryPrice" disabled=true}}
       {{>field value=amount name="amount" disabled=true}}
+      {{!-- {{>field value=bonus name="bonus" disabled=true}} --}}
 
       <strong class="form-card__total">
         Всього: {{totalPrice}} грн ({{bonus}} грн бонусів)
