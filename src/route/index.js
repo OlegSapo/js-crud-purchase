@@ -492,7 +492,7 @@ router.get('/purchase-update', function (req, res) {
   // ↑↑ сюди вводимо JSON дані
 })
 
-// ================================================================
+// ===============================================================
 
 router.post('/purchase-update', function (req, res) {
   const id = Number(req.query.id)
